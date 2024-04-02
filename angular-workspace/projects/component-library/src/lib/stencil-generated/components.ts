@@ -1,24 +1,21 @@
 /* tslint:disable */
 /* auto-generated angular directive proxies */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, NgZone } from '@angular/core';
-import { ProxyCmp, proxyOutputs } from './angular-component-lib/utils';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone } from '@angular/core';
+
+import { ProxyCmp } from './angular-component-lib/utils';
 
 import { Components } from 'stencil-library';
 
 
-
-
-export declare interface MyComponent extends Components.MyComponent {}
-
 @ProxyCmp({
-  defineCustomElementFn: undefined,
   inputs: ['first', 'last', 'middle']
 })
 @Component({
   selector: 'my-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
-  inputs: ['first', 'last', 'middle']
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['first', 'last', 'middle'],
 })
 export class MyComponent {
   protected el: HTMLElement;
@@ -27,3 +24,8 @@ export class MyComponent {
     this.el = r.nativeElement;
   }
 }
+
+
+export declare interface MyComponent extends Components.MyComponent {}
+
+

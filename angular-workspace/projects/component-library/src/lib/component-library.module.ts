@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { ComponentLibraryComponent } from './component-library.component';
-
 import { MyComponent } from './stencil-generated/components';
 
 @NgModule({
-  declarations: [ComponentLibraryComponent, MyComponent],
+  declarations: [MyComponent],
   imports: [],
-  exports: [ComponentLibraryComponent, MyComponent],
+  exports: [MyComponent],
 })
 export class ComponentLibraryModule {}
