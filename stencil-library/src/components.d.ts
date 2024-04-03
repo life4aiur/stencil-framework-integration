@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { TextareaChangeEventDetail } from "./components/my-text-area/textarea-interface";
+export { TextareaChangeEventDetail } from "./components/my-text-area/textarea-interface";
 export namespace Components {
     interface MyComponent {
         /**
@@ -20,6 +22,16 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface MyTextArea {
+        /**
+          * The value of the textarea.
+         */
+        "value"?: string | null;
+    }
+}
+export interface MyTextAreaCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyTextAreaElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +40,26 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMyTextAreaElementEventMap {
+        "myChange": TextareaChangeEventDetail;
+    }
+    interface HTMLMyTextAreaElement extends Components.MyTextArea, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMyTextAreaElementEventMap>(type: K, listener: (this: HTMLMyTextAreaElement, ev: MyTextAreaCustomEvent<HTMLMyTextAreaElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMyTextAreaElementEventMap>(type: K, listener: (this: HTMLMyTextAreaElement, ev: MyTextAreaCustomEvent<HTMLMyTextAreaElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMyTextAreaElement: {
+        prototype: HTMLMyTextAreaElement;
+        new (): HTMLMyTextAreaElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "my-text-area": HTMLMyTextAreaElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +77,19 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface MyTextArea {
+        /**
+          * The `myChange` event is fired when the user modifies the textarea's value.
+         */
+        "onMyChange"?: (event: MyTextAreaCustomEvent<TextareaChangeEventDetail>) => void;
+        /**
+          * The value of the textarea.
+         */
+        "value"?: string | null;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "my-text-area": MyTextArea;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +97,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-text-area": LocalJSX.MyTextArea & JSXBase.HTMLAttributes<HTMLMyTextAreaElement>;
         }
     }
 }

@@ -10,5 +10,16 @@
   </head>
   <body>
     <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    <my-text-area></my-text-area>
   </body>
+  <script>
+    function attachEventListeners() {
+      const textArea = document.querySelector('my-text-area');
+      textArea.addEventListener('myChange', ev => {
+        console.log(ev.detail);
+      });
+    }
+
+    attachEventListeners();
+  </script>
 </html>
