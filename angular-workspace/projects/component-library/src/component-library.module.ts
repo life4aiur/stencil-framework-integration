@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { DIRECTIVES } from './stencil-generated';
+import { DIRECTIVES } from './directives';
 import { defineCustomElements } from 'stencil-library/loader';
 
 @NgModule({

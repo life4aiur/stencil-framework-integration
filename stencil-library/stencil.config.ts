@@ -1,21 +1,45 @@
 import { Config } from '@stencil/core';
 import { angularOutputTarget } from '@stencil/angular-output-target';
 
+const componentCorePackage = 'stencil-library';
+
+const getAngularOutputTargets = () => {
+  const excludeComponents = [];
+
+  return [
+    angularOutputTarget({
+      componentCorePackage,
+      directivesProxyFile: '../angular-workspace/projects/component-library/src/directives/components.ts',
+      directivesArrayFile: '../angular-workspace/projects/component-library/src/directives/index.ts',
+      excludeComponents,
+      outputType: 'component',
+    }),
+    angularOutputTarget({
+      componentCorePackage,
+      directivesProxyFile: '../angular-workspace/projects/component-library/standalone/src/directives/components.ts',
+      excludeComponents: [
+        ...excludeComponents,
+        /**
+         * Value Accessors are manually implemented in the `standalone` package.
+         */
+        'my-text-area',
+      ],
+      outputType: 'standalone',
+    }),
+  ];
+};
+
 export const config: Config = {
   namespace: 'stencil-library',
   outputTargets: [
-    angularOutputTarget({
-      componentCorePackage: 'stencil-library',
-      outputType: 'component',
-      directivesProxyFile: '../angular-workspace/projects/component-library/src/lib/stencil-generated/components.ts',
-      directivesArrayFile: '../angular-workspace/projects/component-library/src/lib/stencil-generated/index.ts',
-    }),
+    ...getAngularOutputTargets(),
     {
       type: 'dist',
       esmLoaderPath: '../loader',
     },
     {
       type: 'dist-custom-elements',
+      dir: 'components',
     },
     {
       type: 'docs-readme',
