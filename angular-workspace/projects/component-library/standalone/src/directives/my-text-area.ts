@@ -41,7 +41,7 @@ const accessorProvider = {
   methods: ['setFocus', 'getInputElement'],
 })
 @Component({
-  selector: 'ion-textarea',
+  selector: 'my-text-area',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property

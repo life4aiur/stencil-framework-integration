@@ -32,7 +32,6 @@ const getAngularOutputTargets = () => {
 export const config: Config = {
   namespace: 'stencil-library',
   outputTargets: [
-    ...getAngularOutputTargets(),
     {
       type: 'dist',
       esmLoaderPath: '../loader',
@@ -40,6 +39,7 @@ export const config: Config = {
     {
       type: 'dist-custom-elements',
       dir: 'components',
+      customElementsExportBehavior: 'single-export-module',
     },
     {
       type: 'docs-readme',
@@ -48,5 +48,6 @@ export const config: Config = {
       type: 'www',
       serviceWorker: null, // disable service workers
     },
+    ...getAngularOutputTargets(),
   ],
 };

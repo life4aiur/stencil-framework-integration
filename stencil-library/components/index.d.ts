@@ -1,3 +1,9 @@
+/* StencilLibrary custom elements */
+export { MyComponent as MyComponent } from '../dist/types/components/my-component/my-component';
+export { defineCustomElement as defineCustomElementMyComponent } from './my-component';
+export { MyTextArea as MyTextArea } from '../dist/types/components/my-text-area/my-text-area';
+export { defineCustomElement as defineCustomElementMyTextArea } from './my-text-area';
+
 /**
  * Get the base path to where the assets can be found. Use "setAssetPath(path)"
  * if the path needs to be customized.
@@ -31,3 +37,4 @@ export interface SetPlatformOptions {
   rel?: (el: EventTarget, eventName: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) => void;
 }
 export declare const setPlatformOptions: (opts: SetPlatformOptions) => void;
+export * from '../dist/types';
