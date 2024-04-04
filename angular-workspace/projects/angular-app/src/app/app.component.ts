@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      longQuote: new UntypedFormControl(''),
+      myTextArea: new UntypedFormControl(''),
     });
   }
 

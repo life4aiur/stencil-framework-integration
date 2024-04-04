@@ -12,5 +12,8 @@
   <h4>Form state</h4>
   VALID : {{ myForm.valid }}
   <pre>{{ myForm.getRawValue() | json }}</pre>
+  <div>{{ "Pristine:  " + myForm.pristine }}</div>
+  <div>{{ "Dirty:  " + myForm.dirty }}</div>
+  <div>{{ "Touched:  " + myForm.touched }}</div>
 </div>
 <router-outlet></router-outlet>
