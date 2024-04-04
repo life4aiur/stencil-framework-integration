@@ -3,4 +3,14 @@
   first="Stencil"
   last="'Don't call me a framework' JS"
 ></my-component>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <my-text-area formControlName="myTextArea"></my-text-area>
+  <button type="submit">Submit</button>
+</form>
+<div>
+  <h4>Form state</h4>
+  VALID : {{ myForm.valid }}
+  <pre>{{ myForm.getRawValue() | json }}</pre>
+</div>
 <router-outlet></router-outlet>
