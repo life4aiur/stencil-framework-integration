@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { TextareaChangeEventDetail } from "./components/my-text-area/textarea-interface";
-export { TextareaChangeEventDetail } from "./components/my-text-area/textarea-interface";
+import { TextareaChangeEventDetail, TextareaInputEventDetail } from "./components/my-text-area/textarea-interface";
+export { TextareaChangeEventDetail, TextareaInputEventDetail } from "./components/my-text-area/textarea-interface";
 export namespace Components {
     interface MyComponent {
         /**
@@ -41,7 +41,10 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLMyTextAreaElementEventMap {
+        "myBlur": FocusEvent;
+        "myFocus": FocusEvent;
         "myChange": TextareaChangeEventDetail;
+        "myInput": TextareaInputEventDetail;
     }
     interface HTMLMyTextAreaElement extends Components.MyTextArea, HTMLStencilElement {
         addEventListener<K extends keyof HTMLMyTextAreaElementEventMap>(type: K, listener: (this: HTMLMyTextAreaElement, ev: MyTextAreaCustomEvent<HTMLMyTextAreaElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -79,9 +82,21 @@ declare namespace LocalJSX {
     }
     interface MyTextArea {
         /**
+          * Emitted when the input loses focus.
+         */
+        "onMyBlur"?: (event: MyTextAreaCustomEvent<FocusEvent>) => void;
+        /**
           * The `myChange` event is fired when the user modifies the textarea's value.
          */
         "onMyChange"?: (event: MyTextAreaCustomEvent<TextareaChangeEventDetail>) => void;
+        /**
+          * Emitted when the input has focus.
+         */
+        "onMyFocus"?: (event: MyTextAreaCustomEvent<FocusEvent>) => void;
+        /**
+          * The `myInput` event is fired when the user modifies the textarea's value.
+         */
+        "onMyInput"?: (event: MyTextAreaCustomEvent<TextareaInputEventDetail>) => void;
         /**
           * The value of the textarea.
          */

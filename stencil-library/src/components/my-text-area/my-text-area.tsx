@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
-import { TextareaChangeEventDetail } from './textarea-interface';
+import { TextareaChangeEventDetail, TextareaInputEventDetail } from './textarea-interface';
 
 @Component({
   tag: 'my-text-area',
@@ -27,13 +27,36 @@ export class MyTextArea {
   }
 
   /**
+   * Emitted when the input loses focus.
+   */
+  @Event() myBlur!: EventEmitter<FocusEvent>;
+
+  /**
+   * Emitted when the input has focus.
+   */
+  @Event() myFocus!: EventEmitter<FocusEvent>;
+
+  /**
    * The `myChange` event is fired when the user modifies the textarea's value.
    */
   @Event() myChange!: EventEmitter<TextareaChangeEventDetail>;
 
+  /**
+   * The `myInput` event is fired when the user modifies the textarea's value.
+   */
+  @Event() myInput!: EventEmitter<TextareaInputEventDetail>;
+
   private getValue(): string {
     return this.value || '';
   }
+
+  private onFocus = (ev: FocusEvent) => {
+    this.myFocus.emit(ev);
+  };
+
+  private onBlur = (ev: FocusEvent) => {
+    this.myBlur.emit(ev);
+  };
 
   private onChange = (ev: Event) => {
     this.emitValueChange(ev);
@@ -44,6 +67,7 @@ export class MyTextArea {
     if (input) {
       this.value = input.value || '';
     }
+    this.emitInputChange(ev);
   };
 
   /**
@@ -59,12 +83,20 @@ export class MyTextArea {
     this.myChange.emit({ value: newValue, event });
   }
 
+  /**
+   * Emits an `myInput` event.
+   */
+  private emitInputChange(event?: Event) {
+    const { value } = this;
+    this.myInput.emit({ value, event });
+  }
+
   render() {
     const value = this.getValue();
 
     return (
       <Host>
-        <textarea ref={el => (this.nativeInput = el)} onChange={this.onChange} onInput={this.onInput}>
+        <textarea ref={el => (this.nativeInput = el)} onChange={this.onChange} onInput={this.onInput} onBlur={this.onBlur} onFocus={this.onFocus}>
           {value}
         </textarea>
       </Host>
