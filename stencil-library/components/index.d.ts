@@ -3,6 +3,8 @@ export { MyCheckbox as MyCheckbox } from '../dist/types/components/my-checkbox/m
 export { defineCustomElement as defineCustomElementMyCheckbox } from './my-checkbox';
 export { MyComponent as MyComponent } from '../dist/types/components/my-component/my-component';
 export { defineCustomElement as defineCustomElementMyComponent } from './my-component';
+export { MyInput as MyInput } from '../dist/types/components/my-input/my-input';
+export { defineCustomElement as defineCustomElementMyInput } from './my-input';
 export { MyTextArea as MyTextArea } from '../dist/types/components/my-text-area/my-text-area';
 export { defineCustomElement as defineCustomElementMyTextArea } from './my-text-area';
 

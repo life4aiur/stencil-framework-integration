@@ -11,6 +11,7 @@
   <body>
     <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
     <my-checkbox></my-checkbox>
+    <my-input></my-input>
     <my-text-area></my-text-area>
   </body>
   <script>
@@ -39,6 +40,9 @@
     function attachEventListeners() {
       const checkbox = document.querySelector('my-checkbox');
       attach(checkbox);
+
+      const input = document.querySelector('my-input');
+      attach(input);
 
       const textArea = document.querySelector('my-text-area');
       attach(textArea);
