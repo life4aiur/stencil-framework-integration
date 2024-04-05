@@ -1,16 +1,3 @@
-// export {
-//   IonCheckbox,
-//   IonDatetime,
-//   IonInput,
-//   IonIcon,
-//   IonRadioGroup,
-//   IonRadio,
-//   IonRange,
-//   IonSearchbar,
-//   IonSegment,
-//   IonSelect,
-//   IonTextarea,
-//   IonToggle,
-// } from './directives';
+export { MyCheckbox, MyInput, MyTextArea } from './directives';
 
 export * from './directives/components';

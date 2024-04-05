@@ -22,6 +22,8 @@ const getAngularOutputTargets = () => {
         /**
          * Value Accessors are manually implemented in the `standalone` package.
          */
+        'my-checkbox',
+        'my-input',
         'my-text-area',
       ],
       outputType: 'standalone',

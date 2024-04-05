@@ -63,7 +63,7 @@ export class MyCheckbox {
 
   /**
    * Sets the checked property and emits
-   * the ionChange event. Use this to update the
+   * the myChange event. Use this to update the
    * checked state in response to user-generated
    * actions such as a click.
    */

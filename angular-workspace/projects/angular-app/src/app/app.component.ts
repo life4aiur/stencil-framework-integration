@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  FormControl,
   UntypedFormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
@@ -17,6 +18,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
+      myCheckbox: new FormControl<boolean>(false),
+      myInput: new UntypedFormControl(''),
       myTextArea: new UntypedFormControl(''),
     });
   }

@@ -10,7 +10,6 @@ import {
   forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ValueAccessor } from '../../../src/directives/control-value-accessors';
 import type {
   TextareaChangeEventDetail,
   TextareaInputEventDetail,
@@ -18,6 +17,7 @@ import type {
 } from 'stencil-library';
 import { defineCustomElement } from 'stencil-library/components/my-text-area';
 import { ProxyCmp, proxyOutputs } from './angular-component-lib/utils';
+import { ValueAccessor } from 'projects/component-library/src/directives/control-value-accessors';
 
 const TEXTAREA_INPUTS = ['value'];
 

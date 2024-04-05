@@ -5,6 +5,8 @@
 ></my-component>
 
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <my-checkbox formControlName="myCheckbox"></my-checkbox>
+  <my-input formControlName="myInput"></my-input>
   <my-text-area formControlName="myTextArea"></my-text-area>
   <button type="submit">Submit</button>
 </form>

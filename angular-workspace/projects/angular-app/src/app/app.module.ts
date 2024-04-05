@@ -6,7 +6,11 @@ import { AppComponent } from './app.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyComponent } from 'projects/component-library/standalone/src/directives/components';
-import { MyTextArea } from 'projects/component-library/standalone/src/directives/my-text-area';
+import {
+  MyCheckbox,
+  MyInput,
+  MyTextArea,
+} from 'projects/component-library/standalone/src';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +19,8 @@ import { MyTextArea } from 'projects/component-library/standalone/src/directives
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MyCheckbox,
+    MyInput,
     MyTextArea,
     MyComponent,
   ],
