@@ -5,12 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MyComponent } from 'projects/component-library/standalone/src/directives/components';
-import {
-  MyCheckbox,
-  MyInput,
-  MyTextArea,
-} from 'projects/component-library/standalone/src';
+
+// Comment for standalone implementation
+import { ComponentLibraryModule } from 'component-library';
+
+// Uncomment for standalone implementation
+// import { MyComponent } from 'projects/component-library/standalone/src/directives/components';
+// import {
+//   MyCheckbox,
+//   MyInput,
+//   MyTextArea,
+// } from 'projects/component-library/standalone/src';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,10 +24,15 @@ import {
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MyCheckbox,
-    MyInput,
-    MyTextArea,
-    MyComponent,
+
+    // Comment for standalone implementation
+    ComponentLibraryModule,
+
+    // Uncomment for standalone implementation
+    // MyCheckbox,
+    // MyInput,
+    // MyTextArea,
+    // MyComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
