@@ -10,14 +10,38 @@
   </head>
   <body>
     <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    <my-checkbox></my-checkbox>
     <my-text-area></my-text-area>
   </body>
   <script>
-    function attachEventListeners() {
-      const textArea = document.querySelector('my-text-area');
-      textArea.addEventListener('myChange', ev => {
-        console.log(ev.detail);
+    function attach(element) {
+      if (!element) {
+        return;
+      }
+
+      element.addEventListener('myChange', ev => {
+        console.log(`${element.tagName} -- myChange: `, ev.detail);
       });
+
+      element.addEventListener('myInput', ev => {
+        console.log(`${element.tagName} -- myInput: `, ev.detail);
+      });
+
+      element.addEventListener('myBlur', ev => {
+        console.log(`${element.tagName} -- myBlur: `, ev.detail);
+      });
+
+      element.addEventListener('myFocus', ev => {
+        console.log(`${element.tagName} -- myFocus: `, ev.detail);
+      });
+    }
+
+    function attachEventListeners() {
+      const checkbox = document.querySelector('my-checkbox');
+      attach(checkbox);
+
+      const textArea = document.querySelector('my-text-area');
+      attach(textArea);
     }
 
     attachEventListeners();

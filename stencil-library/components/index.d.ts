@@ -1,4 +1,6 @@
 /* StencilLibrary custom elements */
+export { MyCheckbox as MyCheckbox } from '../dist/types/components/my-checkbox/my-checkbox';
+export { defineCustomElement as defineCustomElementMyCheckbox } from './my-checkbox';
 export { MyComponent as MyComponent } from '../dist/types/components/my-component/my-component';
 export { defineCustomElement as defineCustomElementMyComponent } from './my-component';
 export { MyTextArea as MyTextArea } from '../dist/types/components/my-text-area/my-text-area';
