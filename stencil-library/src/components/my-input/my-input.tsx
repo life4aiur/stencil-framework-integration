@@ -1,17 +1,17 @@
 import type { EventEmitter } from '@stencil/core';
-import { Component, Element, Event, Host, Prop, Watch, h } from '@stencil/core';
+import { AttachInternals, Component, Element, Event, Host, Prop, Watch, h } from '@stencil/core';
 import type { InputChangeEventDetail, InputInputEventDetail } from './input-interface';
-import { InputType } from './input-type';
 
 @Component({
   tag: 'my-input',
   styleUrl: 'my-input.css',
   shadow: true,
+  formAssociated: true,
 })
 export class MyInput {
-  private nativeInput?: HTMLInputElement;
-
   @Element() el!: HTMLMyInputElement;
+
+  @AttachInternals() internals: ElementInternals;
 
   /**
    * If `true`, the user cannot interact with the input.
@@ -24,14 +24,9 @@ export class MyInput {
   @Prop() required = false;
 
   /**
-   * The type of control to display. The default type is text.
-   */
-  @Prop() type: InputType = 'text';
-
-  /**
    * The value of the input.
    */
-  @Prop({ mutable: true }) value?: string | number | null = '';
+  @Prop() value: string;
 
   /**
    * The `myInput` event is fired each time the user modifies the input's value.
@@ -74,52 +69,42 @@ export class MyInput {
    */
   @Watch('value')
   protected valueChanged() {
-    const nativeInput = this.nativeInput;
-    const value = this.getValue();
-    if (nativeInput && nativeInput.value !== value) {
-      nativeInput.value = value;
-    }
+    this.myChange.emit({ value: this.value as any, event });
   }
 
-  /**
-   * Emits an `myChange` event.
-   *
-   * This API should be called for user committed changes.
-   * This API should not be used for external value changes.
-   */
-  private emitValueChange(event?: Event) {
-    const { value } = this;
-    // Checks for both null and undefined values
-    const newValue = value == null ? value : value.toString();
-    this.myChange.emit({ value: newValue as any, event });
+  async componentWillLoad(): Promise<void> {
+    this.internals.setFormValue(null);
   }
 
-  /**
-   * Emits an `myInput` event.
-   */
-  private emitInputChange(event?: Event) {
-    const { value } = this;
-
-    // Checks for both null and undefined values
-    const newValue = value == null ? value : value.toString();
-    this.myInput.emit({ value: newValue as any, event });
+  handleChange(event): void {
+    this.value = event.target.value;
+    this.internals.setFormValue(this.value);
+    this.myChange.emit({ value: this.value as any, event });
+    this.validate();
   }
 
-  private getValue(): string {
-    return typeof this.value === 'number' ? this.value.toString() : (this.value || '').toString();
+  handleInput(event): void {
+    this.value = event.target.value;
+    this.internals.setFormValue(this.value);
+    this.myInput.emit({ value: this.value as any, event });
+    this.validate();
   }
 
-  private onInput = (ev: InputEvent | Event) => {
-    const input = ev.target as HTMLInputElement | null;
-    if (input) {
-      this.value = input.value || '';
-    }
-    this.emitInputChange(ev);
-  };
+  validate(): void {
+    // TODO: there should be a hierarchy of severity here, since only one message can be set.
+    this.internals.setValidity(
+      {
+        badInput: this.value && /\d/.test(this.value),
+        tooLong: this.value && this.value.length > 10,
+        tooShort: this.value && this.value.length < 2,
+        valueMissing: this.required && !this.value,
+      },
+      'This is an invalid value',
+    );
 
-  private onChange = (ev: Event) => {
-    this.emitValueChange(ev);
-  };
+    // This will flag the form fields as invalid for the browser to handle natively, it will also emit an `input` event
+    this.internals.reportValidity();
+  }
 
   private onBlur = (ev: FocusEvent) => {
     this.myBlur.emit(ev);
@@ -131,20 +116,18 @@ export class MyInput {
 
   private renderInput() {
     const { disabled } = this;
-    const value = this.getValue();
 
     return (
       <Host>
         <input
-          ref={input => (this.nativeInput = input)}
+          value={this.value}
           disabled={disabled}
           required={this.required}
-          type={this.type}
-          value={value}
-          onInput={this.onInput}
-          onChange={this.onChange}
+          type="text"
+          onChange={event => this.handleChange(event)}
           onBlur={this.onBlur}
           onFocus={this.onFocus}
+          onInput={event => this.handleInput(event)}
         />
       </Host>
     );

@@ -1,12 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { DIRECTIVES } from './directives';
 import { defineCustomElements } from 'stencil-library/loader';
+import { DIRECTIVES } from './directives';
 import {
   BooleanValueAccessorDirective,
   NumericValueAccessorDirective,
   TextValueAccessorDirective,
 } from './directives/control-value-accessors';
-import { CommonModule } from '@angular/common';
+import { FaceValidationDirective } from './directives/validation/face-validation.directive';
 
 const DECLARATIONS = [
   // generated proxies
@@ -16,6 +17,7 @@ const DECLARATIONS = [
   BooleanValueAccessorDirective,
   NumericValueAccessorDirective,
   TextValueAccessorDirective,
+  FaceValidationDirective,
 ];
 
 @NgModule({

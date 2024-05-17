@@ -5,8 +5,9 @@
 ></my-component>
 
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <!-- <input required ngDefaultControl formControlName="myInput" /> -->
   <my-checkbox formControlName="myCheckbox"></my-checkbox>
-  <my-input formControlName="myInput"></my-input>
+  <my-input required formControlName="myInput"></my-input>
   <my-text-area formControlName="myTextArea"></my-text-area>
   <button type="submit">Submit</button>
 </form>
@@ -17,5 +18,6 @@
   <div>{{ "Pristine:  " + myForm.pristine }}</div>
   <div>{{ "Dirty:  " + myForm.dirty }}</div>
   <div>{{ "Touched:  " + myForm.touched }}</div>
+  <div>{{ "myInput valid:  " + myForm.controls["myInput"].valid }}</div>
 </div>
 <router-outlet></router-outlet>

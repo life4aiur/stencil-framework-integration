@@ -7,12 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                                                        | Type                                          | Default  |
-| ---------- | ---------- | ------------------------------------------------------------------ | --------------------------------------------- | -------- |
-| `disabled` | `disabled` | If `true`, the user cannot interact with the input.                | `boolean`                                     | `false`  |
-| `required` | `required` | If `true`, the user must fill in a value before submitting a form. | `boolean`                                     | `false`  |
-| `type`     | `type`     | The type of control to display. The default type is text.          | `"email" \| "number" \| "password" \| "text"` | `'text'` |
-| `value`    | `value`    | The value of the input.                                            | `number \| string`                            | `''`     |
+| Property   | Attribute  | Description                                                        | Type      | Default     |
+| ---------- | ---------- | ------------------------------------------------------------------ | --------- | ----------- |
+| `disabled` | `disabled` | If `true`, the user cannot interact with the input.                | `boolean` | `false`     |
+| `required` | `required` | If `true`, the user must fill in a value before submitting a form. | `boolean` | `false`     |
+| `value`    | `value`    | The value of the input.                                            | `string`  | `undefined` |
 
 
 ## Events

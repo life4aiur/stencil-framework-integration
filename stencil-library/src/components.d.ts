@@ -6,11 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { CheckboxChangeEventDetail } from "./components/my-checkbox/checkbox-interface";
-import { InputType } from "./components/my-input/input-type";
 import { InputChangeEventDetail, InputInputEventDetail } from "./components/my-input/input-interface";
 import { TextareaChangeEventDetail, TextareaInputEventDetail } from "./components/my-text-area/textarea-interface";
 export { CheckboxChangeEventDetail } from "./components/my-checkbox/checkbox-interface";
-export { InputType } from "./components/my-input/input-type";
 export { InputChangeEventDetail, InputInputEventDetail } from "./components/my-input/input-interface";
 export { TextareaChangeEventDetail, TextareaInputEventDetail } from "./components/my-text-area/textarea-interface";
 export namespace Components {
@@ -60,13 +58,9 @@ export namespace Components {
          */
         "required": boolean;
         /**
-          * The type of control to display. The default type is text.
-         */
-        "type": InputType;
-        /**
           * The value of the input.
          */
-        "value"?: string | number | null;
+        "value": string;
     }
     interface MyTextArea {
         /**
@@ -235,13 +229,9 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
-          * The type of control to display. The default type is text.
-         */
-        "type"?: InputType;
-        /**
           * The value of the input.
          */
-        "value"?: string | number | null;
+        "value"?: string;
     }
     interface MyTextArea {
         /**

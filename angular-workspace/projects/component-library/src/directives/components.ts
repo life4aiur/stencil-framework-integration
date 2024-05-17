@@ -71,14 +71,14 @@ export declare interface MyComponent extends Components.MyComponent {}
 
 
 @ProxyCmp({
-  inputs: ['disabled', 'required', 'type', 'value']
+  inputs: ['disabled', 'required', 'value']
 })
 @Component({
   selector: 'my-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'required', 'type', 'value'],
+  inputs: ['disabled', 'required', 'value'],
 })
 export class MyInput {
   protected el: HTMLElement;

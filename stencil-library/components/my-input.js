@@ -12,16 +12,7 @@ const MyInput$1 = /*@__PURE__*/ proxyCustomElement(class MyInput extends HTMLEle
         this.myChange = createEvent(this, "myChange", 7);
         this.myBlur = createEvent(this, "myBlur", 7);
         this.myFocus = createEvent(this, "myFocus", 7);
-        this.onInput = (ev) => {
-            const input = ev.target;
-            if (input) {
-                this.value = input.value || '';
-            }
-            this.emitInputChange(ev);
-        };
-        this.onChange = (ev) => {
-            this.emitValueChange(ev);
-        };
+        this.internals = this.attachInternals();
         this.onBlur = (ev) => {
             this.myBlur.emit(ev);
         };
@@ -30,61 +21,56 @@ const MyInput$1 = /*@__PURE__*/ proxyCustomElement(class MyInput extends HTMLEle
         };
         this.disabled = false;
         this.required = false;
-        this.type = 'text';
-        this.value = '';
+        this.value = undefined;
     }
     /**
      * Update the native input element when the value changes
      */
     valueChanged() {
-        const nativeInput = this.nativeInput;
-        const value = this.getValue();
-        if (nativeInput && nativeInput.value !== value) {
-            nativeInput.value = value;
-        }
+        this.myChange.emit({ value: this.value, event });
     }
-    /**
-     * Emits an `myChange` event.
-     *
-     * This API should be called for user committed changes.
-     * This API should not be used for external value changes.
-     */
-    emitValueChange(event) {
-        const { value } = this;
-        // Checks for both null and undefined values
-        const newValue = value == null ? value : value.toString();
-        this.myChange.emit({ value: newValue, event });
+    async componentWillLoad() {
+        this.internals.setFormValue(null);
     }
-    /**
-     * Emits an `myInput` event.
-     */
-    emitInputChange(event) {
-        const { value } = this;
-        // Checks for both null and undefined values
-        const newValue = value == null ? value : value.toString();
-        this.myInput.emit({ value: newValue, event });
+    handleChange(event) {
+        this.value = event.target.value;
+        this.internals.setFormValue(this.value);
+        this.myChange.emit({ value: this.value, event });
+        this.validate();
     }
-    getValue() {
-        return typeof this.value === 'number' ? this.value.toString() : (this.value || '').toString();
+    handleInput(event) {
+        this.value = event.target.value;
+        this.internals.setFormValue(this.value);
+        this.myInput.emit({ value: this.value, event });
+        this.validate();
+    }
+    validate() {
+        this.internals.setValidity({
+            badInput: this.value && /\d/.test(this.value),
+            tooLong: this.value && this.value.length > 10,
+            tooShort: this.value && this.value.length < 2,
+            valueMissing: this.required && !this.value,
+        }, 'This is an invalid value');
+        // This will flag the form fields as invalid for the browser to handle natively, it will also emit an `input` event
+        this.internals.reportValidity();
     }
     renderInput() {
         const { disabled } = this;
-        const value = this.getValue();
-        return (h(Host, null, h("input", { ref: input => (this.nativeInput = input), disabled: disabled, required: this.required, type: this.type, value: value, onInput: this.onInput, onChange: this.onChange, onBlur: this.onBlur, onFocus: this.onFocus })));
+        return (h(Host, null, h("input", { value: this.value, disabled: disabled, required: this.required, type: "text", onChange: event => this.handleChange(event), onBlur: this.onBlur, onFocus: this.onFocus, onInput: event => this.handleInput(event) })));
     }
     render() {
         return this.renderInput();
     }
+    static get formAssociated() { return true; }
     get el() { return this; }
     static get watchers() { return {
         "value": ["valueChanged"]
     }; }
     static get style() { return MyInputStyle0; }
-}, [1, "my-input", {
+}, [65, "my-input", {
         "disabled": [4],
         "required": [4],
-        "type": [1],
-        "value": [1032]
+        "value": [1]
     }, undefined, {
         "value": ["valueChanged"]
     }]);
